@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mObywatel by matvs</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg-dark: #020a1e; 
+            --bg-mid: #0a1c3a; 
+            --text-light: #eeeeee;
+            --text-subtle: #777777;
+            --glass-fill: rgba(255, 255, 255, 0.05); 
+            --border-clear: rgba(0, 100, 255, 0.3); 
+            --accent-blue: #2196f3; 
+            --accent-glow: rgba(33, 150, 243, 0.6);
+            --shadow-button: rgba(33, 150, 243, 0.4);
+            --error-red: #ff3333; 
+            --success-green: #33ff33; 
+            --accent-light-blue: #448aff;
+            --warning-yellow: #ffaa00;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+            background-image: radial-gradient(circle at top left, var(--bg-mid) 5%, transparent 40%),
+                                 radial-gradient(circle at bottom right, rgba(0, 100, 255, 0.1) 0%, transparent 45%);
+        }
+
+        .container {
+            background: var(--glass-fill);
+            backdrop-filter: blur(20px) brightness(1.1);
+            -webkit-backdrop-filter: blur(20px) brightness(1.1);
+            padding: 30px; 
+            border-radius: 28px; 
+            border: 1px solid var(--border-clear);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--accent-glow) inset;
+            width: 100%;
+            max-width: 450px; 
+            margin-bottom: 20px; 
+        }
+
+        h1 {
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-subtle);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-clear);
+            padding-bottom: 18px;
+        }
+
+        .warning-box {
+            background-color: rgba(255, 170, 0, 0.1);
+            border: 1px solid rgba(255, 170, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--warning-yellow);
+        }
+
+        .warning-box::before {
+            content: "⚠️";
+            font-size: 1.5rem;
+        }
+
+        .regulations-container {
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-clear);
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .regulations-container h3 {
+            color: var(--accent-blue);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .regulations-container ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .regulations-container li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .regulations-container strong {
+            color: var(--accent-light-blue);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-subtle);
+            font-size: 0.85rem;
+        }
+
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 16px 14px;
+            border: 1px solid var(--border-clear);
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--text-light);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        input[type="password"]:focus, input[type="text"]:focus {
+            border-color: var(--accent-blue);
+            outline: none;
+            box-shadow: 0 0 0 4px var(--accent-glow);
+            background-color: var(--bg-mid);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            accent-color: var(--accent-blue);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .checkbox-group label span {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        #enterButton {
+            width: 100%;
+            padding: 18px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+            background-color: var(--accent-blue);
+            color: var(--text-light);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px var(--shadow-button);
+        }
+
+        #enterButton:hover:not([disabled]) {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            box-shadow: 0 6px 25px var(--accent-glow);
+        }
+
+        #enterButton:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #statusMessage {
+            text-align: center;
+            margin-top: 15px;
+            min-height: 20px; 
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--error-red);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            opacity: 0.7;
+        }
+
+        /* Scrollbar styling dla regulaminu */
+        .regulations-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .regulations-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .regulations-container::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 4px;
+        }
+
+        .regulations-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-light-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>mObywatel by matvs</h1>
+        <div class="subtitle"></div>
+
+        <div class="warning-box">
+            Upewnij się, że zapoznałeś się z poniższym regulaminem przed kontynuacją.
+        </div>
+
+        <div class="regulations-container">
+            <h3>REGULAMIN I ZASTRZEŻENIE PRAWNE</h3>
+            <ol>
+                <li><strong>Charakter edukacyjny:</strong> Niniejsze oprogramowanie jest narzędziem edukacyjnym, symulatorem oraz generatorem testowym służącym wyłącznie do celów szkoleniowych, demonstracyjnych i testowych.</li>
+                
+                <li><strong>Zakaz nielegalnego użycia:</strong> Zabrania się wykorzystywania tego narzędzia do celów niezgodnych z prawem, w tym w szczególności do fałszowania dokumentów tożsamości, oszustw, wprowadzania w błąd organów państwowych lub podmiotów prywatnych.</li>
+                
+                <li><strong>Brak odpowiedzialności:</strong> Autor (matvs) nie ponosi żadnej odpowiedzialności cywilnej ani karnej za szkody wynikłe z niewłaściwego, niezgodnego z prawem lub nieuprawnionego wykorzystania tego oprogramowania. Wszelkie konsekwencje prawne wynikają z działań użytkownika.</li>
+                
+                <li><strong>Odpowiedzialność użytkownika:</strong> Użytkownik przyjmuje na siebie pełną i wyłączną odpowiedzialność za wszelkie czyny wykonane za pomocą tego narzędzia. Korzystając z oprogramowania, użytkownik potwierdza, że działa na własną odpowiedzialność.</li>
+                
+                <li><strong>Dane osobowe:</strong> Wszystkie dane wprowadzane do systemu powinny być fikcyjne lub należeć wyłącznie do użytkownika. Zabrania się wykorzystywania danych osobowych osób trzecich bez ich wyraźnej zgody.</li>
+                
+                <li><strong>Zgodność z prawem:</strong> Użytkownik zobowiązuje się do korzystania z oprogramowania w sposób zgodny z obowiązującym prawem, w tym z ustawą o dowodach osobistych oraz przepisami o ochronie danych osobowych.</li>
+                
+            </ol>
+            <p style="margin-top: 15px; color: var(--warning-yellow); font-weight: 600; text-align: center;">
+                Korzystając z tej aplikacji potwierdzasz, że rozumiesz powyższe warunki i zobowiązujesz się do ich przestrzegania.
+            </p>
+        </div>
+
+        <form id="accessForm">
+            <div class="form-group">
+                <label for="accessCode">Kod dostępu:</label>
+                <input type="password" id="accessCode" name="accessCode" placeholder="••••••••" required>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
+                <label for="acceptTerms">
+                    Oświadczam, że zapoznałem się z regulaminem, rozumiem ryzyko związane z użyciem tego narzędzia, <span>akceptuję wszystkie warunki</span> i zobowiązuję się do korzystania z aplikacji wyłącznie w celach edukacyjnych i zgodnie z prawem.
+                </label>
+            </div>
+
+            <button type="submit" id="enterButton">Przejdź do aplikacji</button>
+            <div id="statusMessage"></div>
+        </form>
+
+        <div class="footer-note">
+            © 2026 matvs
+        </div>
+    </div>
+
+    <script>
+        // Konfiguracja kodu dostępu - możesz zmienić na własny
+        const ACCESS_CODE = "123456";
+        
+        const form = document.getElementById('accessForm');
+        const statusMessage = document.getElementById('statusMessage');
+        const enterButton = document.getElementById('enterButton');
+        const accessCodeInput = document.getElementById('accessCode');
+        const acceptCheckbox = document.getElementById('acceptTerms');
+
+        // Sprawdzenie czy użytkownik już przeszedł weryfikację (opcjonalnie - sesja)
+        if (sessionStorage.getItem('accessGranted') === 'true') {
+            window.location.href = 'generator.html';
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Reset statusu
+            statusMessage.textContent = '';
+            
+            // Walidacja checkboxa
+            if (!acceptCheckbox.checked) {
+                statusMessage.textContent = 'Musisz zaakceptować regulamin, aby kontynuować.';
+                acceptCheckbox.focus();
+                return;
+            }
+            
+            // Walidacja kodu
+            const enteredCode = accessCodeInput.value.trim();
+            
+            if (enteredCode === "") {
+                statusMessage.textContent = 'Wprowadź kod dostępu.';
+                accessCodeInput.focus();
+                return;
+            }
+            
+            if (enteredCode !== ACCESS_CODE) {
+                statusMessage.textContent = 'Nieprawidłowy kod dostępu.';
+                accessCodeInput.value = '';
+                accessCodeInput.focus();
+                return;
+            }
+            
+            // Sukces - zapisz w sesji i przekieruj
+            statusMessage.style.color = 'var(--success-green)';
+            statusMessage.textContent = 'Weryfikacja pomyślna! Przekierowywanie...';
+            
+            enterButton.disabled = true;
+            
+            // Zapisanie w sesji (żeby nie wpisywać kodu za każdym razem w tej sesji)
+            sessionStorage.setItem('accessGranted', 'true');
+            
+            setTimeout(function() {
+                window.location.href = 'generator.html';
+            }, 1500);
+        });
+
+        // Opcjonalnie: Podpowiedź po 3 nieudanych próbach
+        let attempts = 0;
+        accessCodeInput.addEventListener('input', function() {
+            if (this.value.length > 0 && this.value !== ACCESS_CODE) {
+                // Sprawdzenie przy wpisywaniu może być irytujące, więc lepiej tylko przy submit
+            }
+        });
+    </script>
+    
+</body>
+</html>
